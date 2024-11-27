@@ -21,6 +21,10 @@
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
+  hr {
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
 }
 
 @layer components {

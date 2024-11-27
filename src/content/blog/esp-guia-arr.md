@@ -80,7 +80,7 @@ services:
       - TZ=Europe/Madrid
     volumes:
       - /path_to_settings/sonarr:/config
-      - /media/alexandria/tv:/tv
+      - /path_to_downloads/tv:/tv
       - /path_to_downloads/downloads:/downloads
 
   prowlarr:
@@ -288,7 +288,8 @@ El *transcoding* puede ser muy pesado para el servidor, por lo que es recomendab
   - `/data/tvshows`: Carpeta donde Jellyfin buscará series.  
   - `/data/movies`: Carpeta donde Jellyfin buscará películas.  
 - **`group_add`** y **`devices`**:  
-  Configuración para habilitar la aceleración de hardware.
+    - Configuración para habilitar la aceleración de hardware.
+
 
 ---
 
