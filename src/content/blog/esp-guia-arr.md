@@ -175,24 +175,31 @@ En esta sección desglosamos las variables de configuración utilizadas en cada 
 
 ### Variables comunes
 
-- **`PUID` y `PGID`** 
+ **`PUID` y `PGID`** 
 
-  Especifican el ID de usuario y grupo del sistema operativo que ejecutará los contenedores. Esto asegura que los contenedores tengan los permisos adecuados para leer y escribir en los volúmenes montados y que no se ejecuten como `root` para evitar problemas.
+Especifican el ID de usuario y grupo del sistema operativo que ejecutará los contenedores. Esto asegura que los contenedores tengan los permisos adecuados para leer y escribir en los volúmenes montados y que no se ejecuten como `root` para evitar problemas.
   
-  Puedes encontrar tu PUID y PGID ejecutando:  
+Puedes encontrar tu PUID y PGID ejecutando:  
+
     ```bash
     id $(whoami)
     ```
-- **`TZ`**
+**`TZ`**
 
-  Define la zona horaria del contenedor. 
-  Ejemplo: `Europe/Madrid`.
+Define la zona horaria del contenedor. 
 
-- **`volumes`**  
-  - Montaje de carpetas locales dentro de los contenedores. El orden es `carpeta_local:carpeta_en_contenedor`.
-    - `/path_to_settings/`: Carpeta donde se almacenan las configuraciones de los servicios. Yo la tengo en mi home, pero puedes ponerla donde quieras.
-    - `/path_to_downloads/`: Carpeta donde se almacenan las descargas. Yo he montado un disco externo en `/media`, por tanto, `/media/dispositivo` sería la ruta completa. Dentro de esta carpeta, se creará una carpeta `downloads` para las descargas de Transmission. Cuando se complete una descarga, se copiará automáticamente a la carpeta correspondiente de películas o series.
-    Puedes cambiar la ruta de `tv` y `movies` a donde quieras, pero asegúrate de que sea accesible por Jellyfin y los servicios de *arr.
+Ejemplo: `Europe/Madrid`.
+
+**`volumes`**  
+
+Montaje de carpetas locales dentro de los contenedores.
+
+El orden es `carpeta_local:carpeta_en_contenedor`.
+
+  - `/path_to_settings/`: Carpeta donde se almacenan las configuraciones de los servicios. Yo la tengo en mi home, pero puedes ponerla donde quieras.
+  - `/path_to_downloads/`: Carpeta donde se almacenan las descargas. Yo he montado un disco externo en `/media`, por tanto, `/media/dispositivo` sería la ruta completa. Dentro de esta carpeta, se creará una carpeta `downloads` para las descargas de Transmission. Cuando se complete una descarga, se copiará automáticamente a la carpeta correspondiente de películas o series.
+  
+  Puedes cambiar la ruta de `tv` y `movies` a donde quieras, pero asegúrate de que sea accesible por Jellyfin y los servicios de *arr.
 
 
 ---
@@ -201,7 +208,7 @@ En esta sección desglosamos las variables de configuración utilizadas en cada 
 
 Transmission es un cliente BitTorrent con una interfaz web para gestionar las descargas. 
 
-- **`TRANSMISSION_WEB_HOME`** 
+- `TRANSMISSION_WEB_HOME`
   - Ruta a la interfaz web personalizada de Transmission. Yo uso [Transmissionic](https://github.com/6c65726f79/Transmissionic). Colocas los archivos en `/config/tr ansmissionic` y descomentas la línea.
 
 - **`ports`**:  
@@ -361,7 +368,7 @@ Prowlarr es el componente central que se conecta a los indexadores y gestiona la
    ![Prowlarr Indexers](/static/guia-arr/prowlarr1.png)
 
 3. **Obtener la API Key de Sonarr y Radarr:**
-   - Ve a la interfaz de Sonarr y Radarr y obtén la API Key de cada servicio.
+    - Ve a la interfaz de Sonarr y Radarr y obtén la API Key de cada servicio.
     - Para Sonarr: `http://localhost:8989`
     - Para Radarr: `http://localhost:7878`
 
