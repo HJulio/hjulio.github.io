@@ -1,5 +1,5 @@
 ---
-import Lightbox from "@julian_cataldo/astro-lightbox/Lightbox.astro";
+//import Lightbox from "@julian_cataldo/astro-lightbox/Lightbox.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { getAlbumImages } from "../../lib/utils";
@@ -24,7 +24,7 @@ const { album } = Astro.props;
 const images = await getAlbumImages(album.id);
 ---
 
-<Lightbox />
+<!-- <Lightbox /> -->
 <div class="my-16 mb-32 text-center">
     <h1 class="text-5xl font-bold">{album.data.title}</h1>
     <p class="mt-4 text-lg text-neutral-700">{album.data.description}</p>
