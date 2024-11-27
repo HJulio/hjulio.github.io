@@ -1,0 +1,29 @@
+---
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  className="flex h-svh max-w-sm flex-col justify-center"
+>
+  <main class="space-y-4">
+    <p>Hi! I'm Héctor.</p>
+    <p>
+      I'm a software engineer from Spain and I love to build things that runs in
+      the backgroud (a way to say backend developer).
+    </p>
+    <p>
+      At <a href="https://emailmeter.com">Email Meter</a>, where I currently
+      work, I manage tons of real-time data every day with tools like Python,
+      BigQuery, Dataflow and IA models for automatic categorization.
+    </p>
+    <p>
+      I love analog photography. You can check my photos in <a href="/gallery"
+        >/gallery</a
+      >.
+    </p>
+    <p>🙋🏻‍♂️ 🇪🇸 ❤️ 🛠️ 🐍 📷</p>
+  </main>
+</Layout>

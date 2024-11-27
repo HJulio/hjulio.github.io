@@ -1,0 +1,49 @@
+---
+import Lightbox from "@julian_cataldo/astro-lightbox/Lightbox.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { getAlbumImages } from "../../lib/utils";
+export async function getStaticPaths() {
+    const albums = await getCollection("albums");
+
+    const paths = Object.values(albums).map((album) => {
+        return {
+            params: {
+                id: album.id,
+            },
+            props: {
+                album,
+            },
+        };
+    });
+
+    return paths;
+}
+
+const { album } = Astro.props;
+const images = await getAlbumImages(album.id);
+---
+
+<Lightbox />
+<div class="my-16 mb-32 text-center">
+    <h1 class="text-5xl font-bold">{album.data.title}</h1>
+    <p class="mt-4 text-lg text-neutral-700">{album.data.description}</p>
+    <div
+        class="container mx-auto my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5"
+    >
+        {
+            images.map((image) => (
+                <div data-lightbox="true">
+                    <Image
+                        src={image}
+                        alt={`Image from ${album.data.title} album`}
+                        format="avif"
+                        quality={50}
+                        class="mb-4 rounded border border-transparent transition-all duration-300 ease-in-out hover:border-gray-300 hover:shadow-lg"
+                        loading="lazy"
+                    />
+                </div>
+            ))
+        }
+    </div>
+</div>
