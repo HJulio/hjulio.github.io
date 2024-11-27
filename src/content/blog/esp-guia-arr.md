@@ -6,7 +6,7 @@ date: "Nov 27 2024"
 
 ## Introducción
 
-> La batalla contra la piratería parecía ganada con la llegada del streaming, pero a las grandes corporaciones parece que no les bastaba con ganar y el streaming (de vídeo) se ha ido fragmentando. Ahora tenemos decenas de servicios de streaming, cada año más caros, cuyos catálogos se encuentran fragmentados y sin garantías de continuidad. 
+> La batalla contra la piratería parecía ganada con la llegada del streaming, pero a las grandes corporaciones parece que no les bastaba con ganar y el streaming (de vídeo) se ha ido convirtiendo en un reino de taifas. Ahora tenemos decenas de servicios de streaming, cada año más caros, cuyos catálogos se encuentran fragmentados y sin garantías de continuidad. 
 
 ---
 
