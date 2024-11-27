@@ -25,6 +25,10 @@
     margin-top: 15px;
     margin-bottom: 10px;
   }
+  blockquote {
+    color: darkgray;
+    font-style: italic;
+  }
 }
 
 @layer components {
