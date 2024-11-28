@@ -6,29 +6,28 @@ date: "Nov 27 2024"
 
 ## Introducción
 
-> La batalla contra la piratería parecía ganada con la llegada del streaming, pero a las grandes corporaciones parece que no les bastaba con ganar y el streaming (de vídeo) se ha ido convirtiendo en un reino de taifas. Ahora tenemos decenas de servicios de streaming, cada año más caros, cuyos catálogos se encuentran fragmentados y sin garantías de continuidad. 
+> La batalla contra la piratería parecía ganada con la llegada del streaming, pero a las grandes corporaciones parece que no les bastaba con ganar y el streaming (de vídeo) se ha ido convirtiendo en un reino de taifas. Ahora tenemos decenas de servicios de streaming, cada año más caros, cuyos catálogos se encuentran fragmentados y sin garantías de continuidad.
 
 ---
 
-En esta guía aprenderemos a montar tu propio set de aplicaciones **arr* (Sonarr, Radarr) que se encargan de buscar diferentes tipos de archivos multimedia en indexadores torrent. 
+En esta guía aprenderemos a montar tu propio set de aplicaciones **arr* (Sonarr, Radarr) que se encargan de buscar diferentes tipos de archivos multimedia en indexadores torrent.
 
-Esos trackers/índices se gestionan de manera centralizada con *Prowlarr*. Los archivos se catalogarán y servirán con *Jellyfin*, un potente servidor multimedia open source. 
+Esos trackers/índices se gestionan de manera centralizada con *Prowlarr*. Los archivos se catalogarán y servirán con *Jellyfin*, un potente servidor multimedia open source.
 
 Como extra, añadiremos *Jellyseerr* que facilita la petición de nuevos archivos y un servidor *Samba* opcional para servir los archivos en bruto por red.
 
-No vamos a exponer nada a Internet de forma directa, sino que crearemos una red privada virtual con Tailscale para acceder a nuestros servicios de forma segura y cifrada desde cualquier parte del mundo. 
+No vamos a exponer nada a Internet de forma directa, sino que crearemos una red privada virtual con Tailscale para acceder a nuestros servicios de forma segura y cifrada desde cualquier parte del mundo.
 
 ![Diagrama de la red](/static/guia-arr/diagram.png)
 
 ## Requisitos
 
-Doy por hecho que estás montando esto en Linux, pero debería ser muy parecido para Windows y Mac. 
+Doy por hecho que estás montando esto en Linux, pero debería ser muy parecido para Windows y Mac.
 
 Debemos tener instalado:
 
 - Docker + Docker Compose. [+info](https://docs.docker.com/engine/install/)
 - Tailscale [+info](https://tailscale.com/kb/1347/installation)
-
 
 ## docker-compose.yaml
 
@@ -175,38 +174,38 @@ En esta sección desglosamos las variables de configuración utilizadas en cada 
 
 ### Variables comunes
 
- **`PUID` y `PGID`** 
+#### **`PUID` y `PGID`**
 
 Especifican el ID de usuario y grupo del sistema operativo que ejecutará los contenedores. Esto asegura que los contenedores tengan los permisos adecuados para leer y escribir en los volúmenes montados y que no se ejecuten como `root` para evitar problemas.
   
 Puedes encontrar tu PUID y PGID ejecutando:  
 
-    ```bash
+```bash
     id $(whoami)
-    ```
-**`TZ`**
+```
 
-Define la zona horaria del contenedor. 
+#### **`TZ`**
+
+Define la zona horaria del contenedor.
 
 Ejemplo: `Europe/Madrid`.
 
-**`volumes`**  
+#### **`volumes`**  
 
 Montaje de carpetas locales dentro de los contenedores.
 
 El orden es `carpeta_local:carpeta_en_contenedor`.
 
-  - `/path_to_settings/`: Carpeta donde se almacenan las configuraciones de los servicios. Yo la tengo en mi home, pero puedes ponerla donde quieras.
-  - `/path_to_downloads/`: Carpeta donde se almacenan las descargas. Yo he montado un disco externo en `/media`, por tanto, `/media/dispositivo` sería la ruta completa. Dentro de esta carpeta, se creará una carpeta `downloads` para las descargas de Transmission. Cuando se complete una descarga, se copiará automáticamente a la carpeta correspondiente de películas o series.
+- `/path_to_settings/`: Carpeta donde se almacenan las configuraciones de los servicios. Yo la tengo en mi home, pero puedes ponerla donde quieras.
+- `/path_to_downloads/`: Carpeta donde se almacenan las descargas. Yo he montado un disco externo en `/media`, por tanto, `/media/dispositivo` sería la ruta completa. Dentro de esta carpeta, se creará una carpeta `downloads` para las descargas de Transmission. Cuando se complete una descarga, se copiará automáticamente a la carpeta correspondiente de películas o series.
   
-  Puedes cambiar la ruta de `tv` y `movies` a donde quieras, pero asegúrate de que sea accesible por Jellyfin y los servicios de *arr.
-
+Puedes cambiar la ruta de `tv` y `movies` a donde quieras, pero asegúrate de que sea accesible por Jellyfin y los servicios de *arr.
 
 ---
 
 ### Servicio: **Transmission**
 
-Transmission es un cliente BitTorrent con una interfaz web para gestionar las descargas. 
+Transmission es un cliente BitTorrent con una interfaz web para gestionar las descargas.
 
 - `TRANSMISSION_WEB_HOME`
   - Ruta a la interfaz web personalizada de Transmission. Yo uso [Transmissionic](https://github.com/6c65726f79/Transmissionic). Colocas los archivos en `/config/tr ansmissionic` y descomentas la línea.
@@ -214,7 +213,6 @@ Transmission es un cliente BitTorrent con una interfaz web para gestionar las de
 - **`ports`**:  
   - `9091`: Puerto para acceder a la interfaz web.  
   - `51413` (TCP/UDP): Puerto utilizado para las conexiones torrent.
-
 
 He decidido usarlo sin VPN, pero puedes añadir una VPN fácilmente. Hay imágenes de Docker que incluyen todo lo necesario para ello, como esta [VPN Transmission](https://github.com/haugene/docker-transmission-openvpn). Cuidado porque la configuración y variables cambian.
 
@@ -279,7 +277,7 @@ Flaresolverr es un servicio de resolución de captchas (especialmente de Cloudfl
 
 Jellyfin es un servidor multimedia. Puedes acceder a tus películas, series, música y fotos desde cualquier lugar. Es una alternativa gratuita a Plex.
 
-Jellyfin se encarga de catalogar, obtener metadatos, carátulas... 
+También se encarga de catalogar, obtener metadatos, carátulas...
 
 Además, puede codificar al vuelo para adaptarse a la velocidad de conexión del cliente o el formato de vídeo que soporta el dispositivo. Esta característica se llama *transcoding*.
 
@@ -295,8 +293,7 @@ El *transcoding* puede ser muy pesado para el servidor, por lo que es recomendab
   - `/data/tvshows`: Carpeta donde Jellyfin buscará series.  
   - `/data/movies`: Carpeta donde Jellyfin buscará películas.  
 - **`group_add`** y **`devices`**:  
-    - Configuración para habilitar la aceleración de hardware.
-
+  - Configuración para habilitar la aceleración de hardware.
 
 ---
 
@@ -342,7 +339,6 @@ Podrás acceder a los servicios de tu servidor desde cualquier parte del mundo, 
 
 ---
 
-
 ## Configuración inicial: Prowlarr, Jellyfin y Jellyseerr
 
 Para toda la configuración inicial, accede a la interfaz web de cada servicio en tu navegador. La dirección será `http://localhost:puerto` o `http://100.x.x.x:puerto` si estás usando Tailscale.
@@ -351,39 +347,42 @@ Para toda la configuración inicial, accede a la interfaz web de cada servicio e
 
 Prowlarr es el componente central que se conecta a los indexadores y gestiona las búsquedas para Sonarr y Radarr. Sigue estos pasos para añadir indexadores:
 
-1. **Accede a la interfaz de Prowlarr:**
-   - Abre un navegador y ve a:  
-     ```
-     http://localhost:9696
-     ```
+#### Accede a la interfaz de Prowlarr
 
-2. **Añadir indexadores:**
-   - Ve a **Indexers** en el menú principal.  
-   - Haz clic en el botón **Add Indexer**.  
-   - Selecciona el indexador que deseas añadir de la lista (ejemplo: **Rarbg**, **1337x**, etc.).  
-   - Configura los campos requeridos:  
-     - **API Key**: Si el indexador lo requiere, introduce tu clave API (normalmente obtenida en la web del indexador).  
-   - Guarda los cambios y verifica que el indexador esté funcionando.
+- Abre un navegador y ve a:  
 
-   ![Prowlarr Indexers](/static/guia-arr/prowlarr1.png)
+```bash
+    http://localhost:9696
+```
 
-3. **Obtener la API Key de Sonarr y Radarr:**
-    - Ve a la interfaz de Sonarr y Radarr y obtén la API Key de cada servicio.
-    - Para Sonarr: `http://localhost:8989`
-    - Para Radarr: `http://localhost:7878`
+#### Añadir indexadores
 
-En la interfaz de Sonarr y Radarr, ve a **Settings** > **General** > **Security** y copia la API Key de cada servicio.
+- Ve a **Indexers** en el menú principal.  
+- Haz clic en el botón **Add Indexer**.  
+- Selecciona el indexador que deseas añadir de la lista (ejemplo: **Rarbg**, **1337x**, etc.).  
+- Configura los campos requeridos:  
+  - **API Key**: Si el indexador lo requiere, introduce tu clave API (normalmente obtenida en la web del indexador).  
+- Guarda los cambios y verifica que el indexador esté funcionando.
 
+![Prowlarr Indexers](/static/guia-arr/prowlarr1.png)
+
+#### Obtener la API Key de Sonarr y Radarr
+
+- Ve a la interfaz de Sonarr y Radarr y obtén la API Key de cada servicio.
+  - Para Sonarr: `http://localhost:8989`
+  - Para Radarr: `http://localhost:7878`
+- En la interfaz de Sonarr y Radarr, ve a **Settings** > **General** > **Security** y copia la API Key de cada servicio.
+
+#### Configurar Sonarr y Radarr
+
+- Ve a **Settings** > **Apps**.  
+- Haz clic en **Add Application** para añadir Sonarr y Radarr.  
+  - Introduce la URL local de cada servicio (será el nombre del contenedor):
+    - Sonarr: `http://sonarr:8989`.  
+    - Radarr: `http://radarr:7878`.  
+  - Añade la API Key correspondiente en cada servicio.
+- Guarda los cambios.
 ![Sonarr API Key](/static/guia-arr/prowlarr2.png)
-
-4. **Configurar Sonarr y Radarr:**
-   - Ve a **Settings** > **Apps**.  
-   - Haz clic en **Add Application** para añadir Sonarr y Radarr.  
-     - Introduce la URL local de cada servicio (será el nombre del contenedor): 
-       - Sonarr: `http://sonarr:8989`.  
-       - Radarr: `http://radarr:7878`.  
-     - Añade la API Key correspondiente en cada servicio.
-   - Guarda los cambios.
 
 ---
 
@@ -391,61 +390,67 @@ En la interfaz de Sonarr y Radarr, ve a **Settings** > **General** > **Security*
 
 Jellyfin es tu servidor multimedia. Una vez que el contenedor está en ejecución, puedes configurar tu cuenta y biblioteca.
 
-1. **Accede a la interfaz de Jellyfin:**
-   - Abre un navegador y ve a:  
-     ```
-     http://localhost:8096
-     ```
-   - Si estás en otra máquina, reemplaza `localhost` con la IP del servidor.
+#### Accede a la interfaz de Jellyfin
 
-2. **Crear la cuenta de administrador:**
-   - Al acceder por primera vez, Jellyfin te pedirá que crees una cuenta de administrador.  
-   - Introduce un nombre de usuario y contraseña seguros.  
-   - **Importante:** Esta cuenta tendrá control total sobre Jellyfin.
+- Abre un navegador y ve a:  
 
-3. **Configurar bibliotecas:**
-   - En el siguiente paso, Jellyfin te pedirá que configures tus bibliotecas de medios:  
-     - **Películas**: Selecciona la carpeta donde Radarr almacena las películas (`/data/movies`).  
-     - **Series**: Selecciona la carpeta donde Sonarr almacena las series (`/data/tvshows`).
-   - Define el tipo de contenido para cada carpeta (ej.: `Películas`, `Series`).
+```bash
+http://localhost:8096
+```
 
-4. **Configurar idioma y metadatos:**
+#### Crear la cuenta de administrador
 
-5. **Finalizar configuración:**
+- Al acceder por primera vez, Jellyfin te pedirá que crees una cuenta de administrador.  
+- Introduce un nombre de usuario y contraseña seguros.  
+- **Importante:** Esta cuenta tendrá control total sobre Jellyfin.
 
+#### Configurar bibliotecas
+
+- En el siguiente paso, Jellyfin te pedirá que configures tus bibliotecas de medios:  
+  - **Películas**: Selecciona la carpeta donde Radarr almacena las películas (`/data/movies`).  
+  - **Series**: Selecciona la carpeta donde Sonarr almacena las series (`/data/tvshows`).
+- Define el tipo de contenido para cada carpeta (ej.: `Películas`, `Series`).
+
+
+Quedaría configurar idioma y obtención de metadatos y estaría listo.
 
 ---
 
 ### Configuración inicial de Jellyseerr
 
-1. **Accede a la interfaz de Jellyseerr:**
-   - Abre un navegador y ve a:  
-     ```
-     http://localhost:5055
-     ```
-   - Si estás en otra máquina, reemplaza `localhost` con la IP del servidor.
+#### Accede a la interfaz de Jellyseerr
 
-2. **Configura la conexión con Jellyfin:**
-   - En la interfaz de Jellyseerr, ve a **Settings** > **Jellyfin**.
-    - Introduce la URL de Jellyfin (`http://jellyfin:8096`).
-    - Introduce el nombre de usuario y contraseña de Jellyfin o la API Key.
-    - Guarda los cambios.
+- Abre un navegador y ve a:  
 
-3. **Configura la conexión con Sonarr y Radarr:**
-    - En la interfaz de Jellyseerr, ve a **Settings** > **Sonarr** y **Radarr**.
-     - Introduce la URL de Sonarr y Radarr (`http://sonarr:8989` y `http://radarr:7878`).
-     - Introduce la API Key de Sonarr y Radarr.
-     - Guarda los cambios.
+```bash
+http://localhost:5055
+```
 
-4. **Listo:**  
-   - Ahora puedes acceder a Jellyseerr para solicitar nuevas películas y series.
+- Si estás en otra máquina, reemplaza `localhost` con la IP del servidor.
 
+#### Configura la conexión con Jellyfin
+
+- En la interfaz de Jellyseerr, ve a **Settings** > **Jellyfin**.
+  - Introduce la URL de Jellyfin (`http://jellyfin:8096`).
+  - Introduce el nombre de usuario y contraseña de Jellyfin o la API Key.
+  - Guarda los cambios.
+
+#### Configura la conexión con Sonarr y Radarr
+
+- En la interfaz de Jellyseerr, ve a **Settings** > **Sonarr** y **Radarr**.
+  - Introduce la URL de Sonarr y Radarr (`http://sonarr:8989` y `http://radarr:7878`).
+  - Introduce la API Key de Sonarr y Radarr.
+  - Guarda los cambios.
+
+#### Listo
+
+- Ahora puedes acceder a Jellyseerr para solicitar nuevas películas y series.
 
 ---
 
-## Uso 
+## Uso
 
-Una vez que todos los servicios estén configurados, puedes olvidarte de la mayoría de ellos. Puedes entrar en Jellyseerr para solicitar nuevas películas o series, y en Jellyfin para ver tu contenido. 
+Una vez que todos los servicios estén configurados, puedes olvidarte de la mayoría de ellos. Puedes entrar en Jellyseerr para solicitar nuevas películas o series, y en Jellyfin para ver tu contenido.
 
 ## Notas finales
 
@@ -453,26 +458,26 @@ Una vez que todos los servicios estén configurados, puedes olvidarte de la mayo
 
  No expongas tus servicios directamente a Internet. Utiliza Tailscale para acceder a ellos de forma segura y cifrada.
 
-- **Transcoding**: 
+- **Transcoding**:
 
 Prueba diferentes configuraciones de Jellyfin para adaptar el *transcoding* a tus necesidades. Si tienes problemas de rendimiento, desactiva el *transcoding* o ajusta la calidad de transmisión.
 
-- **Clientes**: 
+- **Clientes**:
 
-Puedes acceder a Jellyfin desde cualquier dispositivo con un navegador web o usando las aplicaciones oficiales de Jellyfin para Android, iOS, Roku, etc. Yo uso Swiftin para iOS y iPad. Cuidado con el navegador que uses, porque algunos no soportan los codecs más modernos 4K, HDR, etc. 
+Puedes acceder a Jellyfin desde cualquier dispositivo con un navegador web o usando las aplicaciones oficiales de Jellyfin para Android, iOS, Roku, etc. Yo uso Swiftin para iOS y iPad. Cuidado con el navegador que uses, porque algunos no soportan los codecs más modernos 4K, HDR, etc.
 
-- **Problemas**: 
+- **Problemas**:
 
 Si tienes problemas con los servicios, consulta los registros de los contenedores (`docker logs nombre_del_contenedor`) o la documentación oficial de cada servicio.
 
-- **Actualizaciones**: 
+- **Actualizaciones**:
 
 Asegúrate de mantener actualizados los contenedores y las imágenes de Docker. Puedes hacerlo fácilmente con `docker-compose pull` y `docker-compose up -d`.
 
-- **Portainer**: 
+- **Portainer**:
 
 Si te sientes más cómodo con una interfaz gráfica, puedes añadir portainer al `docker-compose.yaml` y acceder a él en `http://localhost:9000`. Portainer es un gestor de contenedores Docker con una interfaz web muy intuitiva.
 
-- **Más información y guías avanzadas**: 
+- **Más información y guías avanzadas**:
 
 Puedes profundixar en la configuración de cada servicio con las guías de TRaSH, la comunidad de usuarios de *arr [TRaSH Guides](https://trash-guides.info/).
