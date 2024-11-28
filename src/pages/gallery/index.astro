@@ -22,6 +22,7 @@ const albums = await getCollection("albums");
                             format="avif"
                             width={720}
                             quality="mid"
+                            loading="eager"
                             class:list={[
                                 "rounded-lg transition-all",
                                 "group-hover:opacity-90 group-hover:shadow-lg",
@@ -31,8 +32,14 @@ const albums = await getCollection("albums");
                             <strong class="font-normal">
                                 {item.data.title}
                             </strong>
-                            <p class="text-xs dark:text-white">
+                            <p class="text-s mt-2 dark:text-neutral-400">
                                 {item.data.description}
+                            </p>
+                            <p class="mt-2 text-xs dark:text-neutral-400">
+                                {item.data.film && `🎞️ ${item.data.film}`}{" "}
+                            </p>
+                            <p class="mt-2 text-xs dark:text-neutral-400">
+                                {item.data.camera && `📸 ${item.data.camera}`}{" "}
                             </p>
                         </div>
                     </a>

@@ -17,8 +17,11 @@ const albums = defineCollection({
     z.object({
       title: z.string(),
       description: z.string().optional(),
+      film: z.string().optional(),
+      camera: z.string().optional(),
       cover: image(),
+      copyright: z.string().optional(),
     }),
 });
 
-export const collections = { blog , albums };
+export const collections = { blog, albums };
