@@ -16,6 +16,7 @@ const albums = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      short_description: z.string().optional(),
       description: z.string().optional(),
       film: z.string().optional(),
       camera: z.string().optional(),
