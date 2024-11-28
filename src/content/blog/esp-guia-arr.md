@@ -454,9 +454,17 @@ Una vez que todos los servicios estén configurados, puedes olvidarte de la mayo
 
 ## Notas finales
 
+- **Almacenamiento**:
+
+Las aplicaciones \*arr copian las descargas completadas a las carpetas de películas y series. El archivo original permanece en la carpeta de descargas de Transmission y ayuda a que se comparta en la red bittorrent. Considera borrar estas descargas completadas de vez en cuando para liberar espacio. Esto no afectará a las películas y series en tus bibliotecas.
+
+Hay métodos para evitar la copia, como el hardlinking, que crea un enlace simbólico en lugar de copiar el archivo. Esto puede ser útil si tienes poco espacio en disco.
+
+También es importante revisar las normas de los trackers privados, si los añades, para evitar problemas con el ratio de subida y descarga y el tiempo mínimo de seeding. Supongo que si estás en un tracker privado, ya sabes de qué va el tema.
+
 - **Seguridad**:
 
- No expongas tus servicios directamente a Internet. Utiliza Tailscale para acceder a ellos de forma segura y cifrada.
+No expongas tus servicios directamente a Internet. Utiliza Tailscale para acceder a ellos de forma segura y cifrada.
 
 - **Transcoding**:
 
