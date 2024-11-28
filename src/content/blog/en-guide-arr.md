@@ -423,23 +423,30 @@ Once everything is set up, you can primarily use Jellyseerr to request new movie
 ## Final Notes
 
 - **Security**:  
-  Do not expose your services directly to the internet. Use Tailscale for encrypted access.  
+  
+Do not expose your services directly to the internet. Use Tailscale for encrypted access.  
 
 - **Transcoding**:  
-  Adjust Jellyfin’s transcoding settings for optimal performance.  
+  
+Adjust Jellyfin’s transcoding settings for optimal performance.  
 
 - **Clients**:  
-  Access Jellyfin via web browsers or its official apps on Android, iOS, Roku, etc. Some browsers may not support advanced codecs (4K, HDR, etc.).  
+  
+Access Jellyfin via web browsers or its official apps on Android, iOS, Roku, etc. Some browsers may not support advanced codecs (4K, HDR, etc.).  
 
 - **Troubleshooting**:  
-  If any service isn’t working as expected, check the container logs (`docker logs container_name`) or the official documentation.
+  
+If any service isn’t working as expected, check the container logs (`docker logs container_name`) or the official documentation.
 
 - **Updates**:
-  Keep your containers and Docker images up to date with `docker-compose pull` and `docker-compose up -d`.
+
+Keep your containers and Docker images up to date with `docker-compose pull` and `docker-compose up -d`.
 
 - **Portainer**:
-  If you prefer a graphical interface, add Portainer to your `docker-compose.yaml` and access it at `http://localhost:9000`.
+
+If you prefer a graphical interface, add Portainer to your `docker-compose.yaml` and access it at `http://localhost:9000`.
 
 - **More Information and Advanced Guides**:
-  Explore the configuration of each service with the TRaSH community’s guides [TRaSH Guides](https://trash-guides.info/).
+
+Explore the configuration of each service with the TRaSH community’s guides [TRaSH Guides](https://trash-guides.info/).
 
