@@ -1,0 +1,19 @@
+---
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  className="flex h-svh max-w-sm flex-col justify-center"
+>
+  <main class="space-y-4">
+    <h1 class="text-xl font-bold">Get in touch!</h1>
+    <h2><strong>email:</strong> hi[at]hache.xyz</h2>
+    <h2>
+      <strong>bluesky:</strong>
+      <a href="https://bsky.app/profile/hache.xyz">@hache.xyz</a>
+    </h2>
+  </main>
+</Layout>
