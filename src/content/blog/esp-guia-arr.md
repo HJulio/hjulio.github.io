@@ -1,5 +1,5 @@
 ---
-title: "[ESP] Guía Sonarr + Radarr + Prwolarr + Jellyfin + Tailscale"
+title: "[ES] Guía Sonarr + Radarr + Prwolarr + Jellyfin + Tailscale"
 description: "Guía para instalar y configurar Sonarr, Radarr, Prwolarr, Jellyfin y algunos extras con Tailscale y Docker"
 date: "Nov 27 2024"
 ---
