@@ -16,13 +16,6 @@ export default defineConfig({
       forward: ["dataLayer.push"],
     },
   }),],
-  vite: {
-    build: {
-      rollupOptions: {
-        external: ['@julian_cataldo/astro-lightbox'],
-      },
-    },
-  },
   markdown: {
     shikiConfig: {
       themes: {

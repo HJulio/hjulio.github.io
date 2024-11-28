@@ -1,9 +1,9 @@
 ---
-//import Lightbox from "@julian_cataldo/astro-lightbox/Lightbox.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { getAlbumImages } from "../../lib/utils";
+
 export async function getStaticPaths() {
     const albums = await getCollection("albums");
 
@@ -25,7 +25,6 @@ const { album } = Astro.props;
 const images = await getAlbumImages(album.id);
 ---
 
-<!-- <Lightbox /> -->
 <Layout title={album.data.title} description={album.data.description || ""}>
     <div class="my-16 mb-32 text-center">
         <h1 class="text-5xl font-bold">{album.data.title}</h1>
