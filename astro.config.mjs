@@ -1,9 +1,9 @@
 // @ts-check
 // @ts-check
-import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
-
+import partytown from '@astrojs/partytown';
 import sitemap from "@astrojs/sitemap";
+import { defineConfig } from "astro/config";
 
 import tailwind from "@astrojs/tailwind";
 import { SITE_URL } from "./src/consts";
@@ -11,7 +11,11 @@ import { SITE_URL } from "./src/consts";
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [mdx(), sitemap(), tailwind(), partytown({
+    config: {
+      forward: ["dataLayer.push"],
+    },
+  }),],
   vite: {
     build: {
       rollupOptions: {
