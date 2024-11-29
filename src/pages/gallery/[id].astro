@@ -42,17 +42,15 @@ const images = await getAlbumImages(album.id);
             >
                 {
                     images.map((image) => (
-                        <div data-lightbox="true">
-                            <Image
-                                src={image}
-                                alt={`Image from ${album.data.title} album`}
-                                format="avif"
-                                quality={60}
-                                class="mb-4 rounded border border-transparent transition-all duration-300 ease-in-out hover:border-gray-300 hover:shadow-lg"
-                                loading="eager"
-                                decoding="async"
-                            />
-                        </div>
+                        <Image
+                            src={image}
+                            alt={`Image from ${album.data.title} album`}
+                            format="avif"
+                            quality={50}
+                            class="mb-4 rounded border border-transparent transition-all duration-300 ease-in-out hover:border-gray-300 hover:shadow-lg"
+                            loading="lazy"
+                            decoding="async"
+                        />
                     ))
                 }
             </div>
