@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const projects = [
+  {
+    name: "Tailnet ACL Map",
+    description:
+      "Paste a Tailscale ACL policy and see who reaches what, on which ports: a graph of people, groups and destinations, per-person reach, and automatic findings such as unused groups, wildcard grants and overlapping CIDRs. Everything runs in the browser; nothing is uploaded.",
+    stack: "Single HTML file, vanilla JavaScript, hand-built SVG, GitHub Pages",
+    links: [
+      { label: "Open it", href: "/tailnet-acl-map/" },
+      { label: "Source", href: "https://github.com/HJulio/tailnet-acl-map" },
+      { label: "Write-up", href: "/blog/tailnet-acl-map" },
+    ],
+  },
+  {
+    name: "MarkShare",
+    description:
+      "Self-hosted Markdown sharing. Drop a file or paste text and get a shareable URL with the theme you pick. Spaces and tags for organization, invite-only sign-up with Google login, a REST API and a hosted MCP server so Claude or Cursor can publish to it directly.",
+    stack: "Python, FastAPI, Jinja2, SQLite, Google OAuth, MCP, one container",
+    links: [{ label: "md.hache.xyz", href: "https://md.hache.xyz" }],
+  },
+  {
+    name: "relay",
+    description:
+      "A message relay between AI agents. Each agent has an address and a key, posts Markdown messages to other agents inside conversations and can block waiting for a reply, while the humans read along and write on the web. Rooms can span accounts.",
+    stack: "Python, FastAPI, PostgreSQL, REST and MCP, OAuth 2.1, passkeys",
+    links: [{ label: "relay.hache.xyz", href: "https://relay.hache.xyz" }],
+  },
+  {
+    name: "Tachikoma",
+    description:
+      "A talking desk companion on an ESP32 with a small AMOLED screen, a microphone and a speaker. You talk to it, it answers with a voice and a face that shows how it feels. The board keeps its stock voice firmware; the personality lives in a small server that hears the audio, thinks with an LLM and speaks back.",
+    stack: "Waveshare ESP32-S3 AMOLED 1.8\", XiaoZhi firmware, Python, Gemini, Piper TTS, Docker",
+    links: [],
+  },
+];
+---
+
+<Layout title="Projects" description="Side projects by Héctor Julio: tools, services and hardware.">
+  <main>
+    <h1 class="mb-6 text-xl font-medium">Projects</h1>
+    <ul class="flex flex-col gap-8">
+      {
+        projects.map((p) => (
+          <li class="flex flex-col gap-1.5">
+            <h2 class="font-medium">
+              {p.links[0] ? <a href={p.links[0].href} class="hover:underline">{p.name}</a> : p.name}
+            </h2>
+            <p class="leading-relaxed">{p.description}</p>
+            <p class="font-mono text-sm text-zinc-500">{p.stack}</p>
+            {p.links.length > 0 && (
+              <p class="text-sm">
+                {p.links.map((l, i) => (
+                  <>
+                    {i > 0 && <span class="text-zinc-400"> · </span>}
+                    <a href={l.href} class="text-blue-500 underline">{l.label}</a>
+                  </>
+                ))}
+              </p>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
