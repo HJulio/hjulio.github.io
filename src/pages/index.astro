@@ -6,7 +6,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout
   title={SITE_TITLE}
   description={SITE_DESCRIPTION}
-  className="flex h-svh max-w-sm flex-col justify-center"
+  className="flex min-h-svh max-w-sm flex-col justify-center"
 >
   <main class="space-y-4">
     <p>Hi! I'm Héctor.</p>
@@ -17,14 +17,30 @@ import Layout from "../layouts/Layout.astro";
     </p>
     <p>
       At <a href="https://emailmeter.com">Email Meter</a>, I handle vast amounts
-      of real-time data daily using Python, BigQuery, Dataflow, and AI for
+      of real-time email data daily using Python, BigQuery, Dataflow, and AI for
       automated categorization.
+    </p>
+    <p>
+      I'm also building <a href="https://www.reportative.com">Reportative</a>,
+      which turns data from software and industrial devices into dashboards.
+      Right now that means insulation monitoring: small Linux nodes read Bender
+      insulation monitors on ships, plants and substations over Modbus, keep
+      the history on site and ship it to a cloud where crews and shore offices
+      see which board has a fault and what to do about it. Edge boxes,
+      Tailscale, Kubernetes and ClickHouse, often without a reliable link to
+      the outside world.
+    </p>
+    <p>
+      At home I run a small server, automate the house with Home Assistant and
+      keep a talking ESP32 on the desk. Some of it leaks out as side
+      projects: <a href="https://md.hache.xyz">MarkShare</a>, a message relay
+      for AI agents, and <a href="/blog/tailnet-acl-map">Tailnet ACL Map</a>.
     </p>
     <p>
       I also love analog photography — feel free to explore my work in <a
         href="/gallery">/gallery</a
       >.
     </p>
-    <p>🙋🏻‍♂️ 🇪🇸 ❤️ 🛠️ 🐍 📷</p>
+    <p>🙋🏻‍♂️ 🇪🇸 ❤️ 🛠️ 🐍 ⚡ 📷</p>
   </main>
 </Layout>
