@@ -37,23 +37,48 @@ const images = await getAlbumImages(album.id);
         </h3>
         <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
             {images.length} images
-            <div
-                class="container mx-auto my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5"
-            >
-                {
-                    images.map((image) => (
-                        <Image
-                            src={image}
-                            alt={`Image from ${album.data.title} album`}
-                            format="avif"
-                            quality={50}
-                            class="mb-4 rounded border border-transparent transition-all duration-300 ease-in-out hover:border-gray-300 hover:shadow-lg"
-                            loading="lazy"
-                            decoding="async"
-                        />
-                    ))
-                }
-            </div>
         </p>
+        <div
+            class="container mx-auto my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5"
+        >
+            {
+                images.map((image) => (
+                    <Image
+                        src={image}
+                        alt={`Image from ${album.data.title} album`}
+                        format="avif"
+                        quality={50}
+                        class="mb-4 cursor-zoom-in rounded border border-transparent transition-all duration-300 ease-in-out hover:border-gray-300 hover:shadow-lg"
+                        loading="lazy"
+                        decoding="async"
+                        data-lightbox
+                    />
+                ))
+            }
+        </div>
     </div>
+    <dialog
+        id="lightbox"
+        class="m-auto max-h-[95vh] max-w-[95vw] cursor-zoom-out bg-transparent p-0 outline-none backdrop:bg-black/85"
+    >
+        <img class="max-h-[95vh] max-w-[95vw] rounded object-contain" alt="" />
+    </dialog>
 </Layout>
+
+<script>
+    // Native <dialog> lightbox. Rebinds after view transitions (astro:page-load also fires on first load).
+    function bindLightbox() {
+        const dialog = document.getElementById("lightbox") as HTMLDialogElement | null;
+        const big = dialog?.querySelector("img");
+        if (!dialog || !big) return;
+        document.querySelectorAll<HTMLImageElement>("img[data-lightbox]").forEach((thumb) => {
+            thumb.addEventListener("click", () => {
+                big.src = thumb.currentSrc || thumb.src;
+                big.alt = thumb.alt;
+                dialog.showModal();
+            });
+        });
+        dialog.addEventListener("click", () => dialog.close());
+    }
+    document.addEventListener("astro:page-load", bindLightbox);
+</script>
