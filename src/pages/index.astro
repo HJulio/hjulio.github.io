@@ -23,19 +23,25 @@ import Layout from "../layouts/Layout.astro";
     <p>
       I'm also building <a href="https://www.reportative.com">Reportative</a>,
       which turns data from software and industrial devices into dashboards.
-      Right now that means insulation monitoring: small Linux nodes read Bender
-      insulation monitors on ships, plants and substations over Modbus, keep
-      the history on site and ship it to a cloud where crews and shore offices
-      see which board has a fault and what to do about it. Edge boxes,
-      Tailscale, Kubernetes and ClickHouse, often without a reliable link to
-      the outside world.
+      Right now that means insulation monitoring: small nodes on site read the
+      monitoring devices over Modbus TCP and MQTT, keep their history and send
+      it to the cloud, where ClickHouse crunches it and the people in charge
+      see what is failing and what to do about it.
     </p>
-    <p>
-      At home I run a small server, automate the house with Home Assistant and
-      keep a talking ESP32 on the desk. Some of it leaks out as side
-      projects: <a href="https://md.hache.xyz">MarkShare</a>, a message relay
-      for AI agents, and <a href="/blog/tailnet-acl-map">Tailnet ACL Map</a>.
-    </p>
+    <p>Other projects:</p>
+    <ul class="list-inside list-disc space-y-1">
+      <li>
+        <a href="https://md.hache.xyz">MarkShare</a>, a self-hosted Markdown
+        sharing platform.
+      </li>
+      <li>relay, a message relay between AI agents.</li>
+      <li>
+        <a href="/blog/tailnet-acl-map">Tailnet ACL Map</a>, a visualizer for
+        Tailscale ACLs.
+      </li>
+      <li>Tachikoma, a talking ESP32 companion with a face.</li>
+      <li>Home automation with Home Assistant.</li>
+    </ul>
     <p>
       I also love analog photography — feel free to explore my work in <a
         href="/gallery">/gallery</a
